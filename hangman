@@ -1,0 +1,52 @@
+# Write your code here
+import random
+
+print('H A N G M A N')
+menu = str(input('Type "play" to play the game, "exit" to quit: '))
+while menu != 'play' and menu != 'exit':
+    menu = str(input('Type "play" to play the game, "exit" to quit: '))
+
+words = ['python', 'java', 'kotlin', 'javascript']
+comp = random.choice(words)
+counter = 1
+entered = set()
+a = [len(comp) * '-']
+b = a
+while menu != 'exit':
+    while counter <= 8 and set(b) != set(comp):
+        print()
+        print(*b, sep='')
+        pla = str(input('Input a letter: '))
+        if pla in set(comp) and pla not in entered and pla in 'abcdefghijklmnopqrstuvwxyz' and len(pla) == 1:
+            a = []
+            entered.add(pla)
+            for i in range(len(comp)):
+                if pla == comp[i]:
+                    a.extend(pla)
+                elif comp[i] in entered:
+                    a.extend(comp[i])
+                else:
+                    a.extend('-')
+            b = a
+            a = []
+        elif pla not in set(comp) and pla not in entered and pla in 'abcdefghijklmnopqrstuvwxyz' and len(pla) == 1:
+            print("That letter doesn't appear in the word")
+            entered.add(pla)
+            counter += 1
+        elif pla in entered:
+            print("You've already guessed this letter")
+        elif len(pla) != 1:
+            print("You should input a single letter")
+        elif pla not in 'abcdefghijklmnopqrstuvwxyz':
+            print("Please enter a lowercase English letter")
+
+    if set(b) == set(comp):
+        print("You guessed the word " + str(comp) + "!")
+        print("You survived!")  
+    else:
+        print('You lost!') 
+    print()
+    menu = str(input('Type "play" to play the game, "exit" to quit: '))
+    break
+    #while menu != 'play' and menu != 'exit':
+    #    menu = str(input('Type "play" to play the game, "exit" to quit: '))
